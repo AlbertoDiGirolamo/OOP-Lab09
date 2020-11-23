@@ -61,7 +61,12 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Optional.filter
          */
-        return null;
+        final List<Optional<T>> returnList = new ArrayList<>();
+        list.forEach(l -> {
+                returnList.add(Optional.of(l).filter(pre));
+
+        });
+        return returnList;
     }
 
     /**
@@ -80,7 +85,14 @@ public final class LambdaUtilities {
         /*
          * Suggestion: consider Map.merge
          */
-        return null;
+        Map<R, T> tmpMap = new HashMap<>();
+        Map<R, Set<T>> returnMap = new HashMap<>();
+        list.forEach(l -> {
+            tmpMap.put(op.apply(l), l);
+        });
+        //https://docs.oracle.com/javase/8/docs/api/java/util/Map.html
+        //tmpMap.merge(key, value, remappingFunction)
+        return returnMap;
     }
 
     /**
@@ -101,7 +113,11 @@ public final class LambdaUtilities {
          * 
          * Keep in mind that a map can be iterated through its forEach method
          */
-        return null;
+        final Map<K, V> returnMap = new HashMap<>();
+        map.forEach((k, v) -> {
+            returnMap.put(k, v.orElse(def.get()));
+        });
+        return returnMap;
     }
 
     /**
