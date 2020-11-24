@@ -78,7 +78,11 @@ public final class MusicGroupImpl implements MusicGroup {
 
     @Override
     public Optional<String> longestAlbum() {
-        return null;
+    	this.albums.keySet().stream()
+    						.forEach(a -> this.songs.stream()
+    												.filter(s -> s.albumName.equals(Optional.of(a))));
+    	return null;
+
     }
 
     private static final class Song {

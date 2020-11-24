@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * Modify this small program adding new filters.
@@ -35,8 +36,11 @@ public final class LambdaFilter extends JFrame {
     private static final long serialVersionUID = 1760990730218643730L;
 
     private enum Command {
-        IDENTITY("No modifications", Function.identity());
 
+        IDENTITY("No modifications", Function.identity()),
+    	LOWERCASE("LOWERCASE", s -> s.toLowerCase()),
+    	COUNTCHARS("COUNT CHARS", s ->String.valueOf(s.length()));
+    	//COUNTLINES("COUNT LINES", s -> long.toString(s.chars().filter(f -> f.equals("\n").count())));
         private final String commandName;
         private final Function<String, String> fun;
 
@@ -63,6 +67,11 @@ public final class LambdaFilter extends JFrame {
         panel1.setLayout(layout);
         final JComboBox<Command> combo = new JComboBox<>(Command.values());
         panel1.add(combo, BorderLayout.NORTH);
+        
+
+        
+        
+        
         final JPanel centralPanel = new JPanel(new GridLayout(1, 2));
         final JTextArea left = new JTextArea();
         left.setBorder(BorderFactory.createLineBorder(Color.BLACK));
